@@ -1,3 +1,5 @@
+@use './colors';
+
 .cards {
   padding: 0 0 15px;
 
@@ -14,8 +16,11 @@
 
   &__column {
     width: 350px;
-    border: 2px solid rgb(220, 215, 215);
+    border: 2px solid colors.$cards_border;
     border-radius: 14px;
+    display: flex;
+    flex-direction: column;
+    justify-content: space-between;
   }
 
   &__header,
@@ -42,23 +47,84 @@
   &__column_todo {
     .cards__header,
     .cards__footer {
-      background-color: rgb(207, 247, 204);
-      border: 4px solid rgb(153, 226, 148);
+      background-color: colors.$info_bg;
+      border: 4px solid colors.$info_border;
     }
   }
 
   &__column_in-progress {
     .cards__header {
-      background-color: rgb(228, 228, 228);
-      border: 4px solid rgb(164, 164, 164);
+      background-color: colors.$in-progress_bg;
+      border: 4px solid colors.$in-progress_border;
     }
   }
 
   &__column_done {
     .cards__header,
     .cards__footer {
-      background-color: rgb(184, 214, 241);
-      border: 4px solid rgb(154, 191, 228);
+      background-color: colors.$done_bg;
+      border: 4px solid colors.$done_border;
     }
+  }
+
+  &__content {
+    margin: 25px 15px;
+    padding: 15px;
+    background-color: colors.$info_bg;
+    border: 2px solid colors.$info_border;
+    border-radius: 15px;
+  }
+
+  &__first-row {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    font-size: 16px;
+    margin-bottom: 15px;
+
+    .first-row__controls {
+      margin: 0 -3px;
+    }
+
+    .first-row__edit-btn,
+    .first-row__delite-btn {
+      cursor: pointer;
+      padding: 5px;
+      border-radius: 5px;
+      font-size: 14px;
+      background-color: colors.$field_bg;
+      margin: 0 3px;
+
+      &:focus {
+        outline: none;
+      }
+    }
+  }
+
+  &__second-row {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    font-size: 16px;
+    margin-bottom: 15px;
+
+    .second-row__move-btn {
+      cursor: pointer;
+      padding: 5px;
+      border-radius: 5px;
+      font-size: 14px;
+      background-color: colors.$field_bg;
+
+      &:focus {
+        outline: none;
+      }
+    }
+  }
+
+  &__third-row {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    font-size: 16px;
   }
 }
