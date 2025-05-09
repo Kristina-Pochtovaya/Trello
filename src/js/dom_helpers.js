@@ -1,3 +1,12 @@
+import { getTodoList } from './local_storage_helpers'
+import { todoStatus } from './common'
+
+import {
+  moveInProgressBtnHandler,
+  completeBtnHandler,
+  backBtnHandler,
+} from './handlers'
+
 export function createDate() {
   const timer = document.getElementById('timer')
   const content = document.createElement('p')
@@ -6,10 +15,31 @@ export function createDate() {
   timer.appendChild(content)
 }
 
+export function setTodosCount() {
+  const todosCount = document.getElementById('todos_count')
+  todosCount.textContent = getTodoList().filter(
+    (item) => item.status === todoStatus.todo
+  ).length
+}
+
+export function setInProgressCount() {
+  const todosCount = document.getElementById('in-progress_count')
+  todosCount.textContent = getTodoList().filter(
+    (item) => item.status === todoStatus.inProgress
+  ).length
+}
+
+export function setDoneCount() {
+  const todosCount = document.getElementById('done_count')
+  todosCount.textContent = getTodoList().filter(
+    (item) => item.status === todoStatus.done
+  ).length
+}
+
 export function generateCard(todo) {
   const todoCards = document.getElementById('todo-cards')
   const card = document.createElement('div')
-  card.classList.add('cards__content')
+  card.classList.add('cards__content', 'cards__content_todo')
   card.setAttribute('id', todo.id)
   todoCards.appendChild(card)
 
@@ -29,12 +59,37 @@ export function generateCard(todo) {
   editBtn.classList.add('first-row__edit-btn')
   editBtn.setAttribute('id', 'first-row-edit-btn')
   editBtn.textContent = 'EDIT'
-  firstRow.appendChild(editBtn)
+  controls.appendChild(editBtn)
   const deliteBtn = document.createElement('button')
   deliteBtn.classList.add('first-row__delite-btn')
   deliteBtn.setAttribute('id', 'first-row-delite-btn')
   deliteBtn.textContent = 'DELITE'
-  firstRow.appendChild(deliteBtn)
+  controls.appendChild(deliteBtn)
+
+  const backBtn = document.createElement('button')
+  backBtn.classList.add('first-row__back-btn', 'first-row__back-btn_hidden')
+  backBtn.setAttribute('id', `first-row-back-btn ${todo.id}`)
+  backBtn.textContent = 'BACK'
+  controls.appendChild(backBtn)
+
+  const backBtns = document.querySelectorAll('.first-row__back-btn')
+  backBtns.forEach((btn) => {
+    btn.addEventListener('click', (e) => backBtnHandler(e))
+  })
+
+  const completeBtn = document.createElement('button')
+  completeBtn.classList.add(
+    'first-row__complete-btn',
+    'first-row__complete-btn_hidden'
+  )
+  completeBtn.setAttribute('id', `first-row-complete-btn ${todo.id}`)
+  completeBtn.textContent = 'COMPLETE'
+  controls.appendChild(completeBtn)
+
+  const completeBtns = document.querySelectorAll('.first-row__complete-btn')
+  completeBtns.forEach((btn) => {
+    btn.addEventListener('click', (e) => completeBtnHandler(e))
+  })
 
   const secondRow = document.createElement('div')
   secondRow.classList.add('cards__second-row')
@@ -46,11 +101,16 @@ export function generateCard(todo) {
   secondRow.appendChild(description)
   const moveBtn = document.createElement('button')
   moveBtn.classList.add('second-row__move-btn')
-  moveBtn.setAttribute('id', 'second-row-move-btn')
+  moveBtn.setAttribute('id', `movebtn ${todo.id}`)
   const chevronIcon = document.createElement('i')
   chevronIcon.classList.add('fa-solid', 'fa-chevron-right')
   moveBtn.appendChild(chevronIcon)
   secondRow.appendChild(moveBtn)
+
+  const moveInProgressBtns = document.querySelectorAll('.second-row__move-btn')
+  moveInProgressBtns.forEach((btn) => {
+    btn.addEventListener('click', (e) => moveInProgressBtnHandler(e))
+  })
 
   const thirdRow = document.createElement('div')
   thirdRow.classList.add('cards__third-row')
@@ -62,17 +122,101 @@ export function generateCard(todo) {
   thirdRow.appendChild(user)
   const time = document.createElement('p')
   time.setAttribute('id', 'third-row-time')
-  time.textContent = todo.time
+  time.textContent = todo.createTime
   thirdRow.appendChild(time)
+
+  setTodosCount()
+}
+
+export function moveCardInProgress(id) {
+  const inProgressCards = document.getElementById('in-progress-cards')
+  const card = document.getElementById(id)
+  inProgressCards.append(card)
+
+  card.classList.remove('cards__content_todo')
+  card.classList.add('cards__content_in-progress')
+
+  const controls = card.querySelector('.first-row__controls')
+  const editBtn = controls.querySelector('.first-row__edit-btn')
+  editBtn.classList.add('first-row__edit-btn_hidden')
+  const deliteBtn = controls.querySelector('.first-row__delite-btn')
+  deliteBtn.classList.add('first-row__delite-btn_hidden')
+  const backBtn = controls.querySelector('.first-row__back-btn')
+  backBtn.classList.remove('first-row__back-btn_hidden')
+  const completeBtn = controls.querySelector('.first-row__complete-btn')
+  completeBtn.classList.remove('first-row__complete-btn_hidden')
+
+  const secondRow = card.querySelector('.cards__second-row')
+  const moveBtn = secondRow.querySelector('.second-row__move-btn')
+  moveBtn.classList.add('second-row__move-btn_hidden')
+}
+
+export function moveCardToTodo(id) {
+  const todoCards = document.getElementById('todo-cards')
+  const card = document.getElementById(id)
+  todoCards.append(card)
+
+  card.classList.remove('cards__content_in-progress')
+  card.classList.add('cards__content_todo')
+
+  const controls = card.querySelector('.first-row__controls')
+  const editBtn = controls.querySelector('.first-row__edit-btn')
+  editBtn.classList.remove('first-row__edit-btn_hidden')
+  const deliteBtn = controls.querySelector('.first-row__delite-btn')
+  deliteBtn.classList.remove('first-row__delite-btn_hidden')
+  const backBtn = controls.querySelector('.first-row__back-btn')
+  backBtn.classList.add('first-row__back-btn_hidden')
+  const completeBtn = controls.querySelector('.first-row__complete-btn')
+  completeBtn.classList.add('first-row__complete-btn_hidden')
+
+  const secondRow = card.querySelector('.cards__second-row')
+  const moveBtn = secondRow.querySelector('.second-row__move-btn')
+  moveBtn.classList.remove('second-row__move-btn_hidden')
+}
+
+export function moveCardToDone(id) {
+  const doneCards = document.getElementById('done-cards')
+  const card = document.getElementById(id)
+  doneCards.append(card)
+
+  card.classList.remove('cards__content_todo')
+  card.classList.add('cards__content_done')
+
+  const controls = card.querySelector('.first-row__controls')
+  const deliteBtn = controls.querySelector('.first-row__delite-btn')
+  deliteBtn.classList.remove('first-row__delite-btn_hidden')
+  const backBtn = controls.querySelector('.first-row__back-btn')
+  backBtn.classList.add('first-row__back-btn_hidden')
+  const completeBtn = controls.querySelector('.first-row__complete-btn')
+  completeBtn.classList.add('first-row__complete-btn_hidden')
 }
 
 export function handleOnDOMContentLoaded() {
-  const localStorageTodoList =
-    JSON.parse(localStorage.getItem('todoList')) ?? []
+  const todoList = getTodoList()
 
-  if (localStorageTodoList.length === 0) {
+  if (todoList.length === 0) {
     return
   }
 
-  localStorageTodoList.forEach((todo) => generateCard(todo))
+  todoList
+    .filter((item) => item.status === todoStatus.todo)
+    .forEach((todo) => generateCard(todo))
+
+  todoList
+    .filter((item) => item.status === todoStatus.inProgress)
+    .forEach((todo) => {
+      generateCard(todo)
+      moveCardInProgress(todo.id)
+    })
+
+  todoList
+    .filter((item) => item.status === todoStatus.done)
+    .forEach((todo) => {
+      generateCard(todo)
+      moveCardToDone(todo.id)
+    })
+
+  setTodosCount()
+  setInProgressCount()
+  setDoneCount()
 }

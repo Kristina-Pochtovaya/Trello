@@ -3,6 +3,7 @@ import {
   addTodoBtnHandler,
   cancelBtnHandler,
   confirmBtnHandler,
+  deleteAllBtnHandler,
 } from './handlers'
 import { handleOnDOMContentLoaded } from './dom_helpers'
 
@@ -20,3 +21,6 @@ cancelBtn.addEventListener('click', cancelBtnHandler)
 
 const confirmBtn = document.getElementById('add-todo__confrim-btn')
 confirmBtn.addEventListener('click', confirmBtnHandler)
+
+const deleteAllBtn = document.getElementById('delete_all')
+deleteAllBtn.addEventListener('click', deleteAllBtnHandler)

@@ -26,19 +26,20 @@
   &__header,
   &__footer {
     border-radius: 14px;
-    padding: 25px 15px;
   }
 
   &__header {
     font-size: 20px;
     display: flex;
     justify-content: space-between;
+    padding: 25px 15px;
   }
 
   &__footer button {
     border: none;
     background-color: transparent;
     cursor: pointer;
+    padding: 25px 15px;
     width: 100%;
     height: 100%;
     font-size: 16px;
@@ -70,9 +71,22 @@
   &__content {
     margin: 25px 15px;
     padding: 15px;
+    border-radius: 15px;
+  }
+
+  &__content_todo {
     background-color: colors.$info_bg;
     border: 2px solid colors.$info_border;
-    border-radius: 15px;
+  }
+
+  &__content_in-progress {
+    background-color: colors.$in-progress_bg;
+    border: 2px solid colors.$in-progress_border;
+  }
+
+  &__content_done {
+    background-color: colors.$done_bg;
+    border: 2px solid colors.$done_border;
   }
 
   &__first-row {
@@ -87,7 +101,9 @@
     }
 
     .first-row__edit-btn,
-    .first-row__delite-btn {
+    .first-row__delite-btn,
+    .first-row__back-btn,
+    .first-row__complete-btn {
       cursor: pointer;
       padding: 5px;
       border-radius: 5px;
@@ -98,6 +114,13 @@
       &:focus {
         outline: none;
       }
+    }
+
+    .first-row__edit-btn_hidden,
+    .first-row__delite-btn_hidden,
+    .first-row__back-btn_hidden,
+    .first-row__complete-btn_hidden {
+      display: none;
     }
   }
 
@@ -115,9 +138,17 @@
       font-size: 14px;
       background-color: colors.$field_bg;
 
+      i {
+        pointer-events: none;
+      }
+
       &:focus {
         outline: none;
       }
+    }
+
+    .second-row__move-btn_hidden {
+      display: none;
     }
   }
 
@@ -126,5 +157,16 @@
     align-items: center;
     justify-content: space-between;
     font-size: 16px;
+  }
+
+  .todo-cards {
+    display: flex;
+    flex-direction: column;
+    justify-content: flex-start;
+    height: 100%;
+  }
+
+  .todo-cards_hidden {
+    display: none;
   }
 }
