@@ -38,25 +38,84 @@ export function cancelBtnHandler() {
   addTodoModalWindow.classList.add('add-todo_hidden')
 }
 
+export function deleteBtnHandler(e) {
+  const todoId = e.target.id.split(' ')[1]
+  const todosList = getTodoList()
+  const updatedTodoList = todosList.filter((item) => item.id !== todoId)
+
+  const itemToDelete = document.getElementById(todoId)
+  itemToDelete.classList.add('content_todo_hidden')
+
+  setTodoList(updatedTodoList)
+  setTodosCount()
+}
+
+export function editBtnHandler(e) {
+  const todoId = e.target.id.split(' ')[1]
+  const todosList = getTodoList()
+
+  const todo = todosList.find((item) => item.id === todoId)
+  const itemToEdit = document.getElementById(todoId)
+  itemToEdit.classList.add('content_todo_edit')
+
+  const addTodoModalWindow = document.getElementById('add-todo-modal-window')
+  addTodoModalWindow.classList.remove('add-todo_hidden')
+  const addTodoModalWindowTitle = document.getElementById(
+    'add-todo__title_input'
+  )
+  addTodoModalWindowTitle.value = todo.title
+
+  const addTodoModalWindowDescription = document.getElementById(
+    'add-todo__description_input'
+  )
+  addTodoModalWindowDescription.value = todo.description
+}
+
 export function confirmBtnHandler() {
   const todoTitle = document.getElementById('add-todo__title_input')
   const todoDescription = document.getElementById('add-todo__description_input')
   const addTodoModalWindow = document.getElementById('add-todo-modal-window')
 
-  const todo = {
-    id: generateId(),
-    createTime: new Date().toLocaleTimeString(),
-    title: todoTitle.value,
-    description: todoDescription.value,
-    user: 'MOCK USER',
-    status: todoStatus.todo,
+  const itemToEdit = document.querySelector('.content_todo_edit')
+
+  if (itemToEdit) {
+    const todosList = getTodoList()
+
+    const updatedTodosList = todosList.map((item) =>
+      item.id === itemToEdit.id
+        ? {
+            ...item,
+            title: todoTitle.value,
+            description: todoDescription.value,
+          }
+        : item
+    )
+
+    const itemToEditTitle = itemToEdit.querySelector('#first-row-title')
+    itemToEditTitle.textContent = todoTitle.value
+    const itemToEditDescription = itemToEdit.querySelector(
+      '#second-row-description'
+    )
+    itemToEditDescription.textContent = todoDescription.value
+    setTodoList(updatedTodosList)
+
+    itemToEdit.classList.remove('content_todo_edit')
+  } else {
+    const todo = {
+      id: generateId(),
+      createTime: new Date().toLocaleTimeString(),
+      title: todoTitle.value,
+      description: todoDescription.value,
+      user: 'MOCK USER',
+      status: todoStatus.todo,
+    }
+
+    const todoList = getTodoList()
+    todoList.push(todo)
+    setTodoList(todoList)
+
+    generateCard(todo)
   }
-
-  const todoList = getTodoList()
-  todoList.push(todo)
-  setTodoList(todoList)
-
-  generateCard(todo)
 
   todoTitle.value = ''
   todoDescription.value = ''
@@ -107,4 +166,27 @@ export function backBtnHandler(e) {
 
   setTodosCount()
   setInProgressCount()
+}
+
+export function searchInputHandler(searchString) {
+  const todosList = getTodoList()
+  const updatedTodoList = todosList.filter(
+    (item) =>
+      !item.title.includes(searchString.trim()) &&
+      !item.description.includes(searchString.trim())
+  )
+
+  updatedTodoList.forEach((todo) => {
+    const notFoundItem = document.getElementById(todo.id)
+    notFoundItem.classList.add('todo-item-not-found')
+  })
+}
+
+export function searchInputClearHandler() {
+  const searchInput = document.getElementById('search-input')
+  console.log(searchInput.value)
+  searchInput.value = ''
+
+  const notFoundItems = document.querySelectorAll('.todo-item-not-found')
+  notFoundItems.forEach((item) => item.classList.remove('todo-item-not-found'))
 }

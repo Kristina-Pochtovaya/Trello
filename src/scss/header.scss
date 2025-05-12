@@ -44,18 +44,30 @@
       }
     }
 
-    .search-input input {
-      line-height: 50px;
-      font-size: 14px;
-      padding: 0 15px;
-      max-width: 550px;
-      min-width: 350px;
-      border: 2px solid colors.$common_border;
-      background-color: colors.$field_bg;
-      border-radius: 15px;
+    .search-input {
+      position: relative;
 
-      &:focus {
-        outline: none;
+      &__clear-btn {
+        position: absolute;
+        top: 50%;
+        right: 10px;
+        transform: translateY(-50%);
+        cursor: pointer;
+      }
+
+      input {
+        line-height: 50px;
+        font-size: 14px;
+        padding: 0 15px;
+        max-width: 550px;
+        min-width: 350px;
+        border: 2px solid colors.$common_border;
+        background-color: colors.$field_bg;
+        border-radius: 15px;
+
+        &:focus {
+          outline: none;
+        }
       }
     }
   }

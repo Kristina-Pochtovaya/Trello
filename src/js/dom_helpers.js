@@ -4,6 +4,8 @@ import { todoStatus } from './common'
 import {
   moveInProgressBtnHandler,
   completeBtnHandler,
+  deleteBtnHandler,
+  editBtnHandler,
   backBtnHandler,
 } from './handlers'
 
@@ -57,14 +59,25 @@ export function generateCard(todo) {
 
   const editBtn = document.createElement('button')
   editBtn.classList.add('first-row__edit-btn')
-  editBtn.setAttribute('id', 'first-row-edit-btn')
+  editBtn.setAttribute('id', `first-row-edit-btn ${todo.id}`)
   editBtn.textContent = 'EDIT'
   controls.appendChild(editBtn)
+
+  const editBtns = document.querySelectorAll('.first-row__edit-btn')
+  editBtns.forEach((btn) => {
+    btn.addEventListener('click', (e) => editBtnHandler(e))
+  })
+
   const deliteBtn = document.createElement('button')
   deliteBtn.classList.add('first-row__delite-btn')
-  deliteBtn.setAttribute('id', 'first-row-delite-btn')
+  deliteBtn.setAttribute('id', `first-row-delite-btn ${todo.id}`)
   deliteBtn.textContent = 'DELITE'
   controls.appendChild(deliteBtn)
+
+  const deliteBtns = document.querySelectorAll('.first-row__delite-btn')
+  deliteBtns.forEach((btn) => {
+    btn.addEventListener('click', (e) => deleteBtnHandler(e))
+  })
 
   const backBtn = document.createElement('button')
   backBtn.classList.add('first-row__back-btn', 'first-row__back-btn_hidden')

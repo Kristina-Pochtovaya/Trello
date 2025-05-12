@@ -4,6 +4,8 @@ import {
   cancelBtnHandler,
   confirmBtnHandler,
   deleteAllBtnHandler,
+  searchInputHandler,
+  searchInputClearHandler,
 } from './handlers'
 import { handleOnDOMContentLoaded } from './dom_helpers'
 
@@ -24,3 +26,9 @@ confirmBtn.addEventListener('click', confirmBtnHandler)
 
 const deleteAllBtn = document.getElementById('delete_all')
 deleteAllBtn.addEventListener('click', deleteAllBtnHandler)
+
+const searchInput = document.getElementById('search-input')
+searchInput.addEventListener('input', (e) => searchInputHandler(e.target.value))
+
+const searchInputClear = document.getElementById('clear-search')
+searchInputClear.addEventListener('click', searchInputClearHandler)
