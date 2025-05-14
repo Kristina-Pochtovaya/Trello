@@ -7,11 +7,14 @@
   position: fixed;
   top: 0;
   left: 0;
-  display: block;
   overflow: auto;
+  opacity: 1;
+  transition: opacity 0.2s ease-in-out;
+  pointer-events: auto;
 
   &_hidden {
-    display: none;
+    opacity: 0;
+    pointer-events: none;
   }
 
   .modal-window {
