@@ -41,9 +41,18 @@ export function setDoneCount() {
 export function generateCard(todo) {
   const todoCards = document.getElementById('todo-cards')
   const card = document.createElement('div')
-  card.classList.add('cards__content', 'cards__content_todo')
+  card.classList.add('cards__content', 'cards__content_todo', 'draggable')
   card.setAttribute('id', todo.id)
+  card.classList.add()
+  card.setAttribute('draggable', true)
   todoCards.appendChild(card)
+
+  card.addEventListener('dragstart', (e) => {
+    console.log(!card.classList.contains('cards__content_done'))
+    if (!card.classList.contains('cards__content_done')) {
+      e.dataTransfer.setData('text/plain', todo.id)
+    }
+  })
 
   const firstRow = document.createElement('div')
   firstRow.classList.add('cards__first-row')
@@ -194,14 +203,22 @@ export function moveCardToDone(id) {
 
   card.classList.remove('cards__content_todo')
   card.classList.add('cards__content_done')
+  card.classList.remove('draggable')
+  card.setAttribute('draggable', false)
 
   const controls = card.querySelector('.first-row__controls')
   const deliteBtn = controls.querySelector('.first-row__delite-btn')
   deliteBtn.classList.remove('first-row__delite-btn_hidden')
   const backBtn = controls.querySelector('.first-row__back-btn')
   backBtn.classList.add('first-row__back-btn_hidden')
+  const editBtn = controls.querySelector('.first-row__edit-btn')
+  editBtn.classList.add('first-row__edit-btn_hidden')
   const completeBtn = controls.querySelector('.first-row__complete-btn')
   completeBtn.classList.add('first-row__complete-btn_hidden')
+
+  const secondRow = card.querySelector('.cards__second-row')
+  const moveBtn = secondRow.querySelector('.second-row__move-btn')
+  moveBtn.classList.add('second-row__move-btn_hidden')
 }
 
 export function handleOnDOMContentLoaded() {

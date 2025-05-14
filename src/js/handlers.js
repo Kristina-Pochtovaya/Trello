@@ -32,10 +32,12 @@ export function cancelBtnHandler() {
   const todoTitle = document.getElementById('add-todo__title_input')
   const todoDescription = document.getElementById('add-todo__description_input')
   const addTodoModalWindow = document.getElementById('add-todo-modal-window')
+  const itemToEdit = document.querySelector('.content_todo_edit')
 
   todoTitle.value = ''
   todoDescription.value = ''
   addTodoModalWindow.classList.add('add-todo_hidden')
+  itemToEdit.classList.remove('content_todo_edit')
 }
 
 export function deleteBtnHandler(e) {
