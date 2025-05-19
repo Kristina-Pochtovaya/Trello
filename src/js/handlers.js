@@ -87,7 +87,8 @@ export function confirmBtnHandler() {
   const addTodoModalWindow = document.getElementById('add-todo-modal-window')
   const select = document.getElementById('add-todo__users')
   const users = JSON.parse(localStorage.getItem(USERS))
-  const userNameToAdd = users.find((user) => user.id == select.value).name || ''
+  const user = users.find((user) => user.id == select.value)
+  const userNameToAdd = user ? user.name : ''
 
   const itemToEdit = document.querySelector('.content_todo_edit')
   if (itemToEdit) {
@@ -186,6 +187,12 @@ export function backBtnHandler(e) {
 
 export function searchInputHandler(searchString) {
   const todosList = getTodoList()
+
+  todosList.forEach((todo) => {
+    const notFoundItem = document.getElementById(todo.id)
+    notFoundItem.classList.remove('todo-item-not-found')
+  })
+
   const updatedTodoList = todosList.filter(
     (item) =>
       !item.title.includes(searchString.trim()) &&
