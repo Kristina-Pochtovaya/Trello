@@ -221,6 +221,17 @@ export function moveCardToDone(id) {
   moveBtn.classList.add('second-row__move-btn_hidden')
 }
 
+export function generateSelect(options) {
+  const select = document.getElementById('add-todo__users')
+
+  options.forEach((optionValue) => {
+    const option = document.createElement('option')
+    option.value = optionValue.id
+    option.textContent = optionValue.name
+    select.appendChild(option)
+  })
+}
+
 export function handleOnDOMContentLoaded() {
   const todoList = getTodoList()
 

@@ -5,3 +5,5 @@ export const todoStatus = {
 }
 
 export const TODO_LIST = 'todoList'
+
+export const USERS = 'users'

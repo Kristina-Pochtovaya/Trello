@@ -9,7 +9,7 @@ import {
   setDoneCount,
 } from './dom_helpers'
 import { getTodoList, setTodoList } from './local_storage_helpers'
-import { todoStatus } from './common'
+import { todoStatus, USERS } from './common'
 
 export function addTodoBtnHandler() {
   const addTodoModalWindow = document.getElementById('add-todo-modal-window')
@@ -32,10 +32,12 @@ export function cancelBtnHandler() {
   const todoTitle = document.getElementById('add-todo__title_input')
   const todoDescription = document.getElementById('add-todo__description_input')
   const addTodoModalWindow = document.getElementById('add-todo-modal-window')
-  const itemToEdit = document.querySelector('.content_todo_edit')
+  const itemToEdit = document.querySelector('.content_todo_edit') || []
+  const select = document.getElementById('add-todo__users')
 
   todoTitle.value = ''
   todoDescription.value = ''
+  select.value = ''
   addTodoModalWindow.classList.add('add-todo_hidden')
   itemToEdit.classList.remove('content_todo_edit')
 }
@@ -71,15 +73,23 @@ export function editBtnHandler(e) {
     'add-todo__description_input'
   )
   addTodoModalWindowDescription.value = todo.description
+
+  const select = document.getElementById('add-todo__users')
+  const users = JSON.parse(localStorage.getItem(USERS))
+  const userIdToEdit = users.find((user) => user.name == todo.user).id || ''
+
+  select.value = userIdToEdit
 }
 
 export function confirmBtnHandler() {
   const todoTitle = document.getElementById('add-todo__title_input')
   const todoDescription = document.getElementById('add-todo__description_input')
   const addTodoModalWindow = document.getElementById('add-todo-modal-window')
+  const select = document.getElementById('add-todo__users')
+  const users = JSON.parse(localStorage.getItem(USERS))
+  const userNameToAdd = users.find((user) => user.id == select.value).name || ''
 
   const itemToEdit = document.querySelector('.content_todo_edit')
-
   if (itemToEdit) {
     const todosList = getTodoList()
 
@@ -89,6 +99,7 @@ export function confirmBtnHandler() {
             ...item,
             title: todoTitle.value,
             description: todoDescription.value,
+            user: userNameToAdd,
           }
         : item
     )
@@ -99,6 +110,8 @@ export function confirmBtnHandler() {
       '#second-row-description'
     )
     itemToEditDescription.textContent = todoDescription.value
+    const itemToEditUserName = itemToEdit.querySelector('#third-row-user')
+    itemToEditUserName.textContent = userNameToAdd
     setTodoList(updatedTodosList)
 
     itemToEdit.classList.remove('content_todo_edit')
@@ -108,10 +121,11 @@ export function confirmBtnHandler() {
       createTime: new Date().toLocaleTimeString(),
       title: todoTitle.value,
       description: todoDescription.value,
-      user: 'MOCK USER',
+      user: userNameToAdd,
       status: todoStatus.todo,
     }
 
+    select.value = ''
     const todoList = getTodoList()
     todoList.push(todo)
     setTodoList(todoList)
@@ -186,7 +200,6 @@ export function searchInputHandler(searchString) {
 
 export function searchInputClearHandler() {
   const searchInput = document.getElementById('search-input')
-  console.log(searchInput.value)
   searchInput.value = ''
 
   const notFoundItems = document.querySelectorAll('.todo-item-not-found')

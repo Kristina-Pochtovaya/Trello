@@ -18,11 +18,13 @@ import {
 } from './dom_helpers'
 import { getTodoList, setTodoList } from './local_storage_helpers'
 import { todoStatus } from './common'
+import { getUsers } from './api'
 
 createDate()
 
 document.addEventListener('DOMContentLoaded', () => {
   handleOnDOMContentLoaded()
+  getUsers()
 })
 
 const addTodoBtn = document.getElementById('add_todo')
