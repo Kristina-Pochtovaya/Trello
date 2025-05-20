@@ -102,3 +102,75 @@
     cursor: pointer;
   }
 }
+
+@media all and (max-width: 1300px) {
+  .add-todo {
+    .modal-window {
+      width: 300px;
+      padding: 10px;
+    }
+
+    &__title {
+      margin-bottom: 10px;
+
+      input {
+        padding: 10px;
+        font-size: 14px;
+      }
+    }
+
+    &__description {
+      margin-bottom: 10px;
+
+      textarea {
+        padding: 10px;
+        font-size: 14px;
+      }
+    }
+
+    &__users {
+      width: 100px;
+      margin-right: 20px;
+    }
+  }
+}
+
+@media all and (max-width: 600px) {
+  .add-todo {
+    .modal-window {
+      width: 200px;
+      padding: 5px;
+    }
+
+    &__title {
+      margin-bottom: 5px;
+
+      input {
+        padding: 10px;
+        font-size: 8px;
+      }
+    }
+
+    &__description {
+      margin-bottom: 5px;
+
+      textarea {
+        padding: 5px;
+        font-size: 8px;
+      }
+    }
+
+    &__users {
+      width: 70px;
+      margin-right: 5px;
+      font-size: 8px;
+    }
+
+    &__cancel-btn,
+    &__confrim-btn {
+      width: 50px;
+      font-size: 8px;
+      font-weight: 300;
+    }
+  }
+}

@@ -72,3 +72,42 @@
     }
   }
 }
+
+@media all and (max-width: 1300px) {
+  .main {
+    .container {
+      max-width: 1170px;
+    }
+
+    .search-input input {
+      min-width: 300px;
+      max-width: 400px;
+    }
+  }
+}
+
+@media all and (max-width: 600px) {
+  .main {
+    .container {
+      max-width: 500px;
+      padding: 0 25px;
+    }
+
+    .timer {
+      margin-top: 3px;
+      p {
+        font-size: 10px;
+      }
+    }
+
+    &__title p {
+      font-size: 10px;
+    }
+
+    .search-input input {
+      min-width: 200px;
+      max-width: 300px;
+      font-size: 10px;
+    }
+  }
+}

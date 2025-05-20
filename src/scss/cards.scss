@@ -205,3 +205,75 @@ button:active {
   transform: translateY(2px);
   transition: all 0.2s ease-in;
 }
+
+@media all and (max-width: 1300px) {
+  .cards {
+    .container {
+      max-width: 1170px;
+    }
+
+    &__column {
+      width: 250px;
+    }
+
+    &__header {
+      padding: 20px 10px;
+      font-size: 16px;
+    }
+
+    &__content {
+      margin: 15px 10px;
+      padding: 10px;
+    }
+
+    &__footer button {
+      padding: 20px 10px;
+      font-size: 14px;
+    }
+
+    .first-row__edit-btn,
+    .first-row__delite-btn,
+    .first-row__back-btn,
+    .first-row__complete-btn {
+      padding: 3px;
+      font-size: 10px;
+    }
+  }
+}
+
+@media all and (max-width: 600px) {
+  .cards {
+    .container {
+      max-width: 500px;
+    }
+
+    &__wrapper {
+      margin: 0 auto;
+
+      > * {
+        margin: 0 auto 5px;
+      }
+    }
+
+    &__header {
+      font-size: 14px;
+    }
+
+    &__first-row,
+    &__second-row,
+    &__third-row {
+      font-size: 8px;
+    }
+
+    &__footer button {
+      font-size: 12px;
+    }
+
+    .first-row__edit-btn,
+    .first-row__delite-btn,
+    .first-row__back-btn,
+    .first-row__complete-btn {
+      font-size: 10px;
+    }
+  }
+}
