@@ -39,7 +39,10 @@ export function cancelBtnHandler() {
   todoDescription.value = ''
   select.value = ''
   addTodoModalWindow.classList.add('add-todo_hidden')
-  itemToEdit.classList.remove('content_todo_edit')
+
+  if (itemToEdit.classList) {
+    itemToEdit.classList.remove('content_todo_edit')
+  }
 }
 
 export function deleteBtnHandler(e) {
