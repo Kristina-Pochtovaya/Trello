@@ -1,0 +1,21 @@
+@forward './fonts';
+@forward './cdn';
+@forward './modal_window_todo';
+@forward './header';
+@forward './cards';
+
+* {
+  text-decoration: none;
+  box-sizing: border-box;
+  margin: 0;
+  padding: 0;
+  list-style: none;
+  font-family: 'Raleway', sans-serif;
+}
+
+.container {
+  max-width: 1350px;
+  padding: 0 15px;
+  background-color: transparent;
+  margin: auto;
+}

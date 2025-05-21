@@ -1,0 +1,116 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <link rel="stylesheet" href="./src/scss/index.scss" />
+    <title>Trello</title>
+  </head>
+  <body>
+    <header class="main">
+      <div class="container">
+        <div class="main__wrapper">
+          <div class="logo">
+            <i class="fa-brands fa-trello"></i>
+            <div class="main__title"><p>Trello</p></div>
+          </div>
+
+          <div class="search-input">
+            <input
+              id="search-input"
+              type="text"
+              placeholder="Start to search..."
+              maxlength="55"
+            />
+            <div class="search-input__clear-btn" id="clear-search">
+                <i class="fa-solid fa-xmark"></i>
+            </div>
+          </div>
+
+          <div id="timer" class="timer"></div>
+        </div>
+      </div>
+    </header>
+
+    <section class="cards">
+        <div class="container">
+          <div class="cards__wrapper">
+            <div class="cards__column cards__column_todo" id="todo-dolumn">
+                <div class="cards__header">
+                    <div class="header__title" >
+                        <p>TODO:</p>
+                    </div>
+                    <div id="count" class="header__count">
+                        <p id="todos_count"></p>
+                    </div>
+                </div>
+           
+                <div id="todo-cards" class="todo-cards">
+                </div>
+
+                <div class="cards__footer">
+                    <button id="add_todo" type="button">Add todo</button>
+                </div>
+            </div>
+
+            <div class="cards__column cards__column_in-progress">
+                <div class="cards__header">
+                    <div class="header__title">
+                        <p>IN PROGRESS:</p>
+                    </div>
+                    <div class="header__count">
+                        <p id="in-progress_count"></p>
+                    </div>
+                </div>
+                <div id="in-progress-cards" class="todo-cards">
+                </div>
+            </div>
+
+            <div class="cards__column cards__column_done">
+                <div class="cards__header">
+                    <div class="header__title">
+                        <p>DONE:</p>
+                    </div>
+                    <div id="count" class="header__count">
+                        <p id="done_count"></p>
+                    </div>
+                </div>
+                <div id="done-cards" class="todo-cards">
+               </div>
+
+                <div class="cards__footer">
+                    <button id="delete_all" type="button">Delete all</button>
+                </div>
+            </div>
+          </div>
+        <div>
+      </section>
+
+      <section class="add-todo add-todo_hidden" id="add-todo-modal-window">
+        <div class="modal-window">
+            <div class="add-todo__wrapper">
+                <div class="add-todo__title"  id="add-todo__title">
+                    <input id="add-todo__title_input" type="text" placeholder="Title"/>
+                </div>
+                <div class="add-todo__description" id="add-todo__description">
+                    <textarea  
+                        name="add-todo__description"
+                        placeholder="Description"
+                        class="add-todo__description" 
+                        id="add-todo__description_input" 
+                        cols="40" 
+                        rows="5"></textarea>
+                </div>
+                <form class="add-todo__controls" id="add-todo__controls">
+                    <select name="add-todo__users" id="add-todo__users" class="add-todo__users">
+                        <option value="">Select user</option>
+                      </select>
+                    <button type="button" class="add-todo__cancel-btn" id="add-todo__cancel-btn">Cancel</button>
+                    <button type="button" class="add-todo__confrim-btn" id="add-todo__confrim-btn">Confrim</button>
+                </form>
+            </div>
+        </div>
+      </section>
+    <script type="module" src="./src/js/index.js"></script>
+  </body>
+</html>
